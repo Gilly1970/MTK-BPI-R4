@@ -36,5 +36,6 @@ bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-bpi-r4
 
 \cp -r ../configs/config.basic .config
 
+make -j$(nproc)
 
 
