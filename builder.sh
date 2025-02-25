@@ -4,7 +4,7 @@ rm -rf openwrt
 rm -rf mtk-openwrt-feeds
 
 git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt || true
-cd openwrt; git checkout 315facfce6dc13d6ec1993db1e16532cadcfcaaa; cd -;	#airoha: an7581: replace BUS clock patch with upstream version
+cd openwrt; git checkout 315facfce6dc13d6ec1993db1e16532cadcfcaaa; cd -;	#kernel: receive all bridged multicast packets if IFF_ALLMULTI is set
 
 
 #cd openwrt; git checkout 68bf4844a1cbc9f404f6e93b70a2657e74f1dce9; cd -;	#realtek: debounce reset key for Zyxel GS1900
