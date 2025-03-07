@@ -14,7 +14,7 @@ git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-f
 #cd mtk-openwrt-feeds; git checkout 2d24500219727bf7279fdb2d8c06dc2fc74cc5eb; cd -;	#refactor openwrt patches according to SDK rules	
 #cd mtk-openwrt-feeds; git checkout 058925006480bbfd67145963a0baf6f3c4bc30ae; cd -;	#Remove openwrt master branch internal patches
 #cd mtk-openwrt-feeds; git checkout 6f292c7f7f85dc07e4fd744c6b892c129f99887d; cd -;	#Add strongswan config and DTS node for inline mode support
-cd mtk-openwrt-feeds; git checkout a9748bd2c6ee1cee973f8fd7149c9389944ae147; cd -;	#Update mtk-2p5ge.c to newest version
+cd mtk-openwrt-feeds; git checkout d4cea36009cf295da2b938e41440de77086a1144; cd -;	#Update mtk-2p5ge.c to newest version
 
 # mtk autobuild rules modification - disable their gerrit
 \cp -r my_files/rules mtk-openwrt-feeds/autobuild/unified
@@ -28,7 +28,11 @@ rm -rf mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/
 # jumbo frames support
 \cp -r my_files/750-mtk-eth-add-jumbo-frame-support-mt7998.patch openwrt/target/linux/mediatek/patches-6.6
 
-#\cp -r my_files/733-11-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch openwrt/target/linux/mediatek/patches-6.6/733-11-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch
+\cp -r my_files/733-11-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch openwrt/target/linux/mediatek/patches-6.6/733-11-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch
+\cp -r my_files/3700-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-mk.patch mtk-openwrt-feeds/24.10/patches-base/
+
+# ethtool upgrade to 6.11
+#\cp -r my_files/ethtool/Makefile openwrt/package/network/utils/ethtool/Makefile
 
 # tx_power patch
 \cp -r my_files/99999_tx_power_check.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/kernel/mt76/patches/
@@ -41,7 +45,7 @@ sed -i 's/CONFIG_PACKAGE_perf=y/# CONFIG_PACKAGE_perf is not set/' mtk-openwrt-f
 cd openwrt
 bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-bpi-r4 log_file=make
 
-#exit 0
+exit 0
 
 # thermal zone addition
 \cp -r my_files/w-mt7988a.dtsi openwrt/target/linux/mediatek/files-6.6/arch/arm64/boot/dts/mediatek/mt7988a.dtsi
