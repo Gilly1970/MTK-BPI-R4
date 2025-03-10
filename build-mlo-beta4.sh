@@ -14,19 +14,21 @@ git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-f
 #cd mtk-openwrt-feeds; git checkout 2d24500219727bf7279fdb2d8c06dc2fc74cc5eb; cd -;	#refactor openwrt patches according to SDK rules	
 #cd mtk-openwrt-feeds; git checkout 058925006480bbfd67145963a0baf6f3c4bc30ae; cd -;	#Remove openwrt master branch internal patches
 #cd mtk-openwrt-feeds; git checkout 6f292c7f7f85dc07e4fd744c6b892c129f99887d; cd -;	#Add strongswan config and DTS node for inline mode support
-cd mtk-openwrt-feeds; git checkout d4cea36009cf295da2b938e41440de77086a1144; cd -;	#Update mtk-2p5ge.c to newest version
+#cd mtk-openwrt-feeds; git checkout d4cea36009cf295da2b938e41440de77086a1144; cd -;	#Update mtk-2p5ge.c to newest version
+cd mtk-openwrt-feeds; git checkout 0c7938bd11a6431517876310c3b78dfa59fd20c6; cd -;	#Change built-in 2.5Gphy firmware to internal version
 
-# mtk autobuild rules modification - disable their gerrit
+# mtk autobuild rules modification - disable mtk gerrit
 \cp -r my_files/rules mtk-openwrt-feeds/autobuild/unified
 
 # wireless-regdb modification
-rm -rf openwrt/package/firmware/wireless-regdb/patches/*.*
-rm -rf mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/firmware/wireless-regdb/patches/*.*
-\cp -r my_files/500-tx_power.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/firmware/wireless-regdb/patches
-\cp -r my_files/regdb.Makefile openwrt/package/firmware/wireless-regdb/Makefile
+#rm -rf openwrt/package/firmware/wireless-regdb/patches/*.*
+#rm -rf mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/firmware/wireless-regdb/patches/*.*
+#\cp -r my_files/500-tx_power.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/firmware/wireless-regdb/patches
+#\cp -r my_files/regdb.Makefile openwrt/package/firmware/wireless-regdb/Makefile
 
 # jumbo frames support
-\cp -r my_files/750-mtk-eth-add-jumbo-frame-support-mt7998.patch openwrt/target/linux/mediatek/patches-6.6
+#\cp -r my_files/750-mtk-eth-add-jumbo-frame-support-mt7998.patch openwrt/target/linux/mediatek/patches-6.6
+
 
 \cp -r my_files/733-11-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch openwrt/target/linux/mediatek/patches-6.6/733-11-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch
 \cp -r my_files/3700-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-mk.patch mtk-openwrt-feeds/24.10/patches-base/
@@ -48,7 +50,7 @@ bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-bpi-r4
 exit 0
 
 # thermal zone addition
-\cp -r my_files/w-mt7988a.dtsi openwrt/target/linux/mediatek/files-6.6/arch/arm64/boot/dts/mediatek/mt7988a.dtsi
+\cp -r my_files/wozi-mt7988a.dtsi openwrt/target/linux/mediatek/files-6.6/arch/arm64/boot/dts/mediatek/mt7988a.dtsi
 
 cd openwrt
 
