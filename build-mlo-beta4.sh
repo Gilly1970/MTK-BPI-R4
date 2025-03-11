@@ -4,17 +4,10 @@ rm -rf openwrt
 rm -rf mtk-openwrt-feeds
 
 git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt || true
-#cd openwrt; git checkout 315facfce6dc13d6ec1993db1e16532cadcfcaaa; cd -;	#ok	
-#cd openwrt; git checkout c9b97c0b4de7b63334042960a07eb91decbcb7e6; cd -;	#ethtool: update to 6.11
 cd openwrt; git checkout 56559278b78900f6cae5fda6b8d1bb9cda41e8bf; cd -;	#hostapd: add missing #ifdef to fix compile error when 802.11be support is disabled
 
 git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds || true
-#cd mtk-openwrt-feeds; git checkout 612001dcebc0385f0cfe5cc5ccbf5dfd640dd4e1; cd -;
-#cd mtk-openwrt-feeds; git checkout d1340b5dd0b879fb66b599c0dbb70b41d4f2d02e; cd -;	#LRO
-#cd mtk-openwrt-feeds; git checkout 2d24500219727bf7279fdb2d8c06dc2fc74cc5eb; cd -;	#refactor openwrt patches according to SDK rules	
-#cd mtk-openwrt-feeds; git checkout 058925006480bbfd67145963a0baf6f3c4bc30ae; cd -;	#Remove openwrt master branch internal patches
-#cd mtk-openwrt-feeds; git checkout 6f292c7f7f85dc07e4fd744c6b892c129f99887d; cd -;	#Add strongswan config and DTS node for inline mode support
-#cd mtk-openwrt-feeds; git checkout d4cea36009cf295da2b938e41440de77086a1144; cd -;	#Update mtk-2p5ge.c to newest version
+#cd mtk-openwrt-feeds; git checkout 0c7938bd11a6431517876310c3b78dfa59fd20c6; cd -;	#kernel-6.6][mt7988][eth][net: phy: mediatek: mtk-2p5ge: Change built-in 2.5Gphy firmware to internal version
 cd mtk-openwrt-feeds; git checkout fd5a031d286bdf3fd67e1be0ce2f56c4196383e2; cd -;	#net: phy: mediatek: mtk-2p5ge: Add support for mt7987
 
 # mtk autobuild rules modification - disable mtk gerrit
@@ -31,10 +24,7 @@ cd mtk-openwrt-feeds; git checkout fd5a031d286bdf3fd67e1be0ce2f56c4196383e2; cd 
 
 
 #\cp -r my_files/733-11-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch openwrt/target/linux/mediatek/patches-6.6/733-11-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch
-#\cp -r my_files/3700-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-mk.patch mtk-openwrt-feeds/24.10/patches-base/
-
-# ethtool upgrade to 6.11
-#\cp -r my_files/ethtool/Makefile openwrt/package/network/utils/ethtool/Makefile
+\cp -r my_files/3700-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-mk.patch mtk-openwrt-feeds/24.10/patches-base/
 
 # tx_power patch
 \cp -r my_files/99999_tx_power_check.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/kernel/mt76/patches/
@@ -64,7 +54,7 @@ cd openwrt
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
-\cp -r ../configs/config.beta4.ext ./.config
+\cp -r ../configs/config.beta4.ext .config
 
 make menuconfig
 make -j$(nproc)
