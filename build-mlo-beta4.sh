@@ -8,7 +8,9 @@ cd openwrt; git checkout 56559278b78900f6cae5fda6b8d1bb9cda41e8bf; cd -;	#hostap
 
 git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds || true
 #cd mtk-openwrt-feeds; git checkout 0c7938bd11a6431517876310c3b78dfa59fd20c6; cd -;	#kernel-6.6][mt7988][eth][net: phy: mediatek: mtk-2p5ge: Change built-in 2.5Gphy firmware to internal version
-cd mtk-openwrt-feeds; git checkout fd5a031d286bdf3fd67e1be0ce2f56c4196383e2; cd -;	#net: phy: mediatek: mtk-2p5ge: Add support for mt7987
+#cd mtk-openwrt-feeds; git checkout fd5a031d286bdf3fd67e1be0ce2f56c4196383e2; cd -;	#net: phy: mediatek: mtk-2p5ge: Add support for mt7987
+cd mtk-openwrt-feeds; git checkout 56d690de81d0ccb0d25688d8a63af72388928f48; cd -;	#mmc-utils: update to 2024-03-03 version
+
 
 # mtk autobuild rules modification - disable mtk gerrit
 \cp -r my_files/rules mtk-openwrt-feeds/autobuild/unified
@@ -50,6 +52,10 @@ cd openwrt
 \cp -r ../my_files/luci-app-modemband-main/luci-app-modemband/ feeds/luci/applications
 \cp -r ../my_files/luci-app-modemband-main/modemband/ feeds/packages/net/modemband
 \cp -r ../my_files/luci-app-at-socat/ feeds/luci/applications
+
+# fibocom ncm
+\cp -r ../my_files/atc-fib-fm350_gl feeds/packages/net/atc-fib-fm350_gl
+\cp -r ../my_files/luci-proto-atc feeds/luci/protocols
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
