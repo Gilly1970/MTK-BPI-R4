@@ -7,13 +7,7 @@ git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git ope
 cd openwrt; git checkout 56559278b78900f6cae5fda6b8d1bb9cda41e8bf; cd -;	#hostapd: add missing #ifdef to fix compile error when 802.11be support is disabled
 
 git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds || true
-#cd mtk-openwrt-feeds; git checkout 0c7938bd11a6431517876310c3b78dfa59fd20c6; cd -;	#kernel-6.6][mt7988][eth][net: phy: mediatek: mtk-2p5ge: Change built-in 2.5Gphy firmware to internal version
-#cd mtk-openwrt-feeds; git checkout fd5a031d286bdf3fd67e1be0ce2f56c4196383e2; cd -;	#net: phy: mediatek: mtk-2p5ge: Add support for mt7987
-cd mtk-openwrt-feeds; git checkout 56d690de81d0ccb0d25688d8a63af72388928f48; cd -;	#mmc-utils: update to 2024-03-03 version
-
-
-# mtk autobuild rules modification - disable mtk gerrit
-\cp -r my_files/rules mtk-openwrt-feeds/autobuild/unified
+cd mtk-openwrt-feeds; git checkout 6356091a0f7dd3d02afadaa9b604aa8d74267018; cd -;	#Fix ETH driver bring up issue when eth2 SFP is enabled
 
 # wireless-regdb modification
 #rm -rf openwrt/package/firmware/wireless-regdb/patches/*.*
@@ -23,10 +17,6 @@ cd mtk-openwrt-feeds; git checkout 56d690de81d0ccb0d25688d8a63af72388928f48; cd 
 
 # jumbo frames support
 #\cp -r my_files/750-mtk-eth-add-jumbo-frame-support-mt7998.patch openwrt/target/linux/mediatek/patches-6.6
-
-
-#\cp -r my_files/733-11-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch openwrt/target/linux/mediatek/patches-6.6/733-11-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-on.patch
-\cp -r my_files/3700-wozi-net-phy-add-driver-for-built-in-2.5G-ethernet-PHY-mk.patch mtk-openwrt-feeds/24.10/patches-base/
 
 # tx_power patch
 \cp -r my_files/99999_tx_power_check.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/kernel/mt76/patches/
@@ -54,8 +44,8 @@ cd openwrt
 \cp -r ../my_files/luci-app-at-socat/ feeds/luci/applications
 
 # fibocom ncm
-\cp -r ../my_files/atc-fib-fm350_gl feeds/packages/net/atc-fib-fm350_gl
-\cp -r ../my_files/luci-proto-atc feeds/luci/protocols
+#\cp -r ../my_files/atc-fib-fm350_gl feeds/packages/net/atc-fib-fm350_gl
+#\cp -r ../my_files/luci-proto-atc feeds/luci/protocols
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
